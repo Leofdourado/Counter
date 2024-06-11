@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\counter;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class CounterController extends Controller
 {
@@ -12,54 +13,19 @@ class CounterController extends Controller
      */
     public function index()
     {
-        //
+        $counter = Counter::firstOrCreate(['id' => 1], ['value' => 0]);
+        return Inertia::render('Counter', ['counter' => $counter, 'logs' => $counter->logs()->latest()->take(10)->get()]);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(counter $counter)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(counter $counter)
-    {
-        //
-    }
-
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, counter $counter)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(counter $counter)
-    {
-        //
+        $counter = Counter::first();
+        if ($request->action === 'increment') {$counter->increment('value');} 
+        elseif ($request->action === 'decrement') {$counter->decrement('value');}
+        
+        $counter->logs()->create(['value' => $counter->value]);
+        return redirect()->back();
     }
 }

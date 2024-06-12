@@ -18,7 +18,6 @@ const Counter = () => {
       }
     });
   };
-
   //Func diminuir
   const handleDecrement = () => {
     Inertia.post('/counter', { action: 'decrement' }, {

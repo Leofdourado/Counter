@@ -22,10 +22,14 @@ class CounterController extends Controller
     public function update(Request $request)
     {
         $counter = Counter::first();
-        if ($request->action === 'increment') {$counter->value++;} 
-        elseif ($request->action === 'decrement') {$counter->value--;}
+        if ($request->action === 'increment') {
+            $counter->value++;
+        } 
+        elseif ($request->action === 'decrement') {
+            $counter->value--;
+        }
         
+        $counter->save();
         $counter->logs()->create(['value' => $counter->value]);
-        return redirect()->back();
     }
 }

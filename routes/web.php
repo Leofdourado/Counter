@@ -35,7 +35,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/counter', [CounterController::class, 'index'])->name('counter');
-    Route::post('/counter/update', [CounterController::class, 'update'])->name('counter.update');
+    Route::post('/counter', [CounterController::class, 'update'])->name('counter.update');
 });
 
 require __DIR__.'/auth.php';

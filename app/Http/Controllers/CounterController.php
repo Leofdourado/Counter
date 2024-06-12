@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\counter;
+use App\Models\Counter;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -19,11 +19,11 @@ class CounterController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, counter $counter)
+    public function update(Request $request)
     {
         $counter = Counter::first();
-        if ($request->action === 'increment') {$counter->increment('value');} 
-        elseif ($request->action === 'decrement') {$counter->decrement('value');}
+        if ($request->action === 'increment') {$counter->value++;} 
+        elseif ($request->action === 'decrement') {$counter->value--;}
         
         $counter->logs()->create(['value' => $counter->value]);
         return redirect()->back();

@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class counter extends Model
+class Log extends Model
 {
     use HasFactory;
-    protected $fillable = ['value'];
-    public function logs()
+    protected $fillable = ['counter_id', 'value'];
+    public function counter()
     {
-        return $this->hasMany(Log::class);
+        return $this->belongsTo(Counter::class);
     }
 }

@@ -1,7 +1,16 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import { Inertia } from '@inertiajs/inertia';
 import { Head } from '@inertiajs/react';
+import { useEffect } from 'react';
 
 export default function Dashboard({ auth }) {
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            Inertia.visit('/counter');
+        },2000);
+        return () => clearTimeout(timer)
+    });
+
     return (
         <AuthenticatedLayout
             user={auth.user}
